@@ -1,45 +1,59 @@
-package com.test.liverpool.entity;
+package com.test.liverpool.responsedto;
 
 import java.io.Serializable;
+import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-import com.test.liverpool.requestdto.UsuarioRequestDto;
-
-@Table(name = "ENT_USUARIOS")
-public class UsuarioEntity implements Serializable {
+@JsonInclude( JsonInclude.Include.NON_EMPTY)
+public class UsuarioResponseDto implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@Column("ID_USUARIO")
 	private Integer idUsuario;
-	@Column("NOMBRE")
 	private String nombre;
-	@Column("APELLIDO_PATERNO")
 	private String apellidoPaterno;
-	@Column("APELLIDO_MATERNO")
 	private String apellidoMaterno;
-	@Column("CORREO")
 	private String correo;
-	@Column("USER_NAME")
 	private String userName;
 
-	public UsuarioEntity() {
+	private Integer orders;
+
+	private String msgError;
+
+	private List<DetalleUsuarioResponseDto> lstDetalles;
+
+	public UsuarioResponseDto() {
 	}
 
-	public UsuarioEntity(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public Integer getOrders() {
+		return orders;
 	}
-	
-	public UsuarioEntity(UsuarioRequestDto dto) {
-		this.nombre= dto.getNombre();
-		this.apellidoMaterno= dto.getApellidoMaterno();
-		this.apellidoPaterno= dto.getApellidoPaterno();
+
+	public void setOrders(Integer orders) {
+		this.orders = orders;
+	}
+
+	public List<DetalleUsuarioResponseDto> getLstDetalles() {
+		return lstDetalles;
+	}
+
+	public void setLstDetalles(List<DetalleUsuarioResponseDto> lstDetalles) {
+		this.lstDetalles = lstDetalles;
+	}
+
+	public UsuarioResponseDto(String msgError) {
+		this.msgError = msgError;
+	}
+
+	public String getMsgError() {
+		return msgError;
+	}
+
+	public void setMsgError(String msgError) {
+		this.msgError = msgError;
 	}
 
 	public String getUserName() {

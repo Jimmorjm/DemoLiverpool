@@ -1,41 +1,27 @@
-package com.test.liverpool.entity;
+package com.test.liverpool.responsedto;
 
 import java.io.Serializable;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Table(name = "CAT_PRODUCTO")
-public class ProductoEntity implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class ProductoResponseDto implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@Column("ID_PRODUCTO")
 	private Integer idProducto;
-	@Column("CLAVE")
 	private String clave;
-	@Column("DESCRIPTION")
 	private String description;
-	@Column("COSTO_UNITARIO")
 	private Double costoUnitario;
-	@Column("INVENTARIO_DISPONIBLE")
-	private Integer inventarioDisponible;
-	@Column("DISPLAY_NAME")
 	private String displayName;
+	private Integer inventarioDisponible;
 
-	public ProductoEntity() {
-	}
+	private String msgError;
 
-	public String getDisplayName() {
-		return displayName;
-	}
+	public ProductoResponseDto() {
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
 	}
 
 	public Integer getInventarioDisponible() {
@@ -46,8 +32,24 @@ public class ProductoEntity implements Serializable {
 		this.inventarioDisponible = inventarioDisponible;
 	}
 
-	public ProductoEntity(Integer idProducto) {
-		this.idProducto = idProducto;
+	public ProductoResponseDto(String msgError) {
+		this.msgError = msgError;
+	}
+
+	public String getMsgError() {
+		return msgError;
+	}
+
+	public void setMsgError(String msgError) {
+		this.msgError = msgError;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public Integer getIdProducto() {

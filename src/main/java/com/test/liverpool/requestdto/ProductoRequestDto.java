@@ -1,33 +1,29 @@
-package com.test.liverpool.entity;
+package com.test.liverpool.requestdto;
 
 import java.io.Serializable;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-@Table(name = "CAT_PRODUCTO")
-public class ProductoEntity implements Serializable {
+public class ProductoRequestDto implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@Column("ID_PRODUCTO")
 	private Integer idProducto;
-	@Column("CLAVE")
+	@NotBlank(message = "La clave del producto no puede ir vacia")
 	private String clave;
-	@Column("DESCRIPTION")
+	@NotBlank(message = "La descripcion no puede ir vacia")
 	private String description;
-	@Column("COSTO_UNITARIO")
+	@NotNull(message = "El costo unitario no puede ir vacio")
 	private Double costoUnitario;
-	@Column("INVENTARIO_DISPONIBLE")
+	@NotNull(message = "La cantidad del Inventario no puede ir vacia")
 	private Integer inventarioDisponible;
-	@Column("DISPLAY_NAME")
+	@NotNull(message="Ingrese el DisplayName")
 	private String displayName;
 
-	public ProductoEntity() {
+	public ProductoRequestDto() {
 	}
 
 	public String getDisplayName() {
@@ -36,18 +32,6 @@ public class ProductoEntity implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-	}
-
-	public Integer getInventarioDisponible() {
-		return inventarioDisponible;
-	}
-
-	public void setInventarioDisponible(Integer inventarioDisponible) {
-		this.inventarioDisponible = inventarioDisponible;
-	}
-
-	public ProductoEntity(Integer idProducto) {
-		this.idProducto = idProducto;
 	}
 
 	public Integer getIdProducto() {
@@ -80,6 +64,14 @@ public class ProductoEntity implements Serializable {
 
 	public void setCostoUnitario(Double costoUnitario) {
 		this.costoUnitario = costoUnitario;
+	}
+
+	public Integer getInventarioDisponible() {
+		return inventarioDisponible;
+	}
+
+	public void setInventarioDisponible(Integer inventarioDisponible) {
+		this.inventarioDisponible = inventarioDisponible;
 	}
 
 }

@@ -1,11 +1,17 @@
-package com.test.rupper.repository;
+package com.test.liverpool.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.test.rupper.model.Cliente;
+import com.test.liverpool.entity.UsuarioEntity;
+
+import reactor.core.publisher.Mono;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
+public interface UsuarioRepository extends ReactiveCrudRepository<UsuarioEntity, Integer>{
+
+	Mono<UsuarioEntity> findByUserName(String usarName);
+
+	Mono<UsuarioEntity> findByCorreo(String correo);
 
 }
