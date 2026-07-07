@@ -8,14 +8,14 @@ import reactor.core.publisher.Mono;
 
 public interface UsuariosService {
 
-	public Mono<UsuarioResponseDto> crearusuario(UsuarioRequestDto dto);
+	Mono<UsuarioResponseDto> crearusuario(UsuarioRequestDto dto);
 
-	public Flux<UsuarioResponseDto> findAllUSuarios();
+	Flux<UsuarioResponseDto> findAllUSuarios();
 
-	public Mono<UsuarioResponseDto> findByUserName(String usaerName);
+	Mono<UsuarioResponseDto> findByUserName(String usaerName);
 
-	public Mono<UsuarioResponseDto> actualizaUsuario(UsuarioRequestDto dto);
+	Mono<UsuarioResponseDto> actualizaUsuario(UsuarioRequestDto dto);
 
-	public Mono<UsuarioResponseDto> findById(Integer idUsuario);
+	Mono<UsuarioResponseDto> findById(Integer idUsuario);
 
 }

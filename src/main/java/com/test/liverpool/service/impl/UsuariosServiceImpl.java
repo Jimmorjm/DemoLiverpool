@@ -40,7 +40,7 @@ public class UsuariosServiceImpl implements UsuariosService {
 
 	@Override
 	public Mono<UsuarioResponseDto> crearusuario(UsuarioRequestDto dto) {
-		if(dto.getLstDetalleUsuario()== null || dto.getLstDetalleUsuario().isEmpty()) {
+		if (dto.getLstDetalleUsuario() == null || dto.getLstDetalleUsuario().isEmpty()) {
 			dto.setLstDetalleUsuario(new ArrayList<>());
 		}
 
@@ -187,18 +187,17 @@ public class UsuariosServiceImpl implements UsuariosService {
 	@Override
 	public Mono<UsuarioResponseDto> findById(Integer idUsuario) {
 		List<Integer> lstStatus = List.of(EstatusDemoLiverpool.ESTATUS_ACTIVO.getIdEstatus());
-		return usuarioRepository.findById(idUsuario).
-				flatMap(usuario -> {
-					UsuarioResponseDto dto = usuarioMapper.entityToResponseDto(usuario);
-					Mono<List<DetalleUsuarioResponseDto>> detallesMono = detalleUsuarioRepository
-							.findByIdUsuarioAndEstatus(usuario.getIdUsuario(), lstStatus)
-							.map(detalleUsuarioMapper::entityToResponseDto).collectList();
-					Mono<Integer> pedidosMono = pedioPedidosRepository.countPedidosRepacionadosUsuario(usuario.getIdUsuario());
-					return Mono.zip(detallesMono, pedidosMono).map(tuple -> {
-						dto.setLstDetalles(tuple.getT1());
-						dto.setOrders(tuple.getT2());
-						return dto;
-					});
-				}).onErrorResume(e -> Mono.just(new UsuarioResponseDto("Usuario no encontrado")));
+		return usuarioRepository.findById(idUsuario).flatMap(usuario -> {
+			UsuarioResponseDto dto = usuarioMapper.entityToResponseDto(usuario);
+			Mono<List<DetalleUsuarioResponseDto>> detallesMono = detalleUsuarioRepository
+					.findByIdUsuarioAndEstatus(usuario.getIdUsuario(), lstStatus)
+					.map(detalleUsuarioMapper::entityToResponseDto).collectList();
+			Mono<Integer> pedidosMono = pedioPedidosRepository.countPedidosRepacionadosUsuario(usuario.getIdUsuario());
+			return Mono.zip(detallesMono, pedidosMono).map(tuple -> {
+				dto.setLstDetalles(tuple.getT1());
+				dto.setOrders(tuple.getT2());
+				return dto;
+			});
+		}).onErrorResume(e -> Mono.just(new UsuarioResponseDto("Usuario no encontrado")));
 	}
 }
